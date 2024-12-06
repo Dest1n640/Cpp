@@ -5,7 +5,6 @@ int main() {
     const int N = 80;
     char str[N + 1] = {'\0'}; 
     int numbers[10] = {0}; 
-    int* pnumbers = numbers;
 
     cout << "Enter the string: ";
     cin.getline(str, N); 
@@ -29,7 +28,7 @@ int main() {
             numbers[str[i] - '0']++;  
         }
     }
-int max = 0; 
+    int max = 0; 
     int max_digit = -1; 
 
     for (int i = 0; i < 10; i++) {
