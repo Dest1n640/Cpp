@@ -1,47 +1,38 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+
 using namespace std;
 
-double calculateFunction(double x) {
-    return pow(x, 4);  // Пример функции x^4
+double f1(double x) { return x * x; }
+double f2(double x) { return x * x * x; }
+double f3(double x) { return sin(x); }
+double f4(double x) { return cos(x); }
+
+void checkEvenOdd(double (*func)(double), double start, double end, double step, double epsilon) {
+    setlocale(LC_ALL, "ru");
+    bool isEven = true, isOdd = true;
+    for (double x = start; x <= end; x += step) {
+        double fx = func(x);
+        double f_neg_x = func(-x);
+        if (fabs(fx - f_neg_x) > epsilon) isEven = false;
+        if (fabs(fx + f_neg_x) > epsilon) isOdd = false;
+    }
+    if (isEven) cout << "Функция является четной." << endl;
+    else if (isOdd) cout << "Функция является нечетной." << endl;
+    else cout << "Функция ни четная, ни нечетная." << endl;
 }
 
 int main() {
-    // Диапазон проверки и точность сравнения
-    double a = -5.0;   // Начало диапазона
-    double a1 = 5.0;      // Конец диапазона
-    double step = 0.1;           // Шаг
-    double f = 1.0E-9;    // Точность сравнения
-    
-    bool is_symmetric_even = true;  // Флаг для проверки четности
-    bool is_symmetric_odd = true;   // Флаг для проверки нечетности
-
-    // Проверка на четность
-    for (double x = a; x <= a; x += step) {
-        if (fabs(calculateFunction(x) - calculateFunction(-x)) > f) { 
-            is_symmetric_even = false;
-            break;
-        }
-    }
-
-    if (is_symmetric_even) {
-        cout << "Функция является четной!" << endl;
-    } else {
-        // Проверка на нечетность, если функция не является четной
-        for (double x = a; x <= a1; x += step) {
-            if (fabs(calculateFunction(x) + calculateFunction(-x)) > f) { 
-                is_symmetric_odd = false;
-                break;
-            }
-        }
-
-        if (is_symmetric_odd) {
-            cout << "Функция является нечетной!" << endl;
-        } else {
-            cout << "Функция не является ни четной, ни нечетной!" << endl;
-        }
-    }
-
+    double start = -5.0, end = 5.0, step = 0.1, epsilon = 1e-6;
+    cout << fixed << setprecision(6);
+    cout << "Проверка f(x) = x^2:" << endl;
+    checkEvenOdd(f1, start, end, step, epsilon);
+    cout << "Проверка f(x) = x^3:" << endl;
+    checkEvenOdd(f2, start, end, step, epsilon);
+    cout << "Проверка f(x) = sin(x):" << endl;
+    checkEvenOdd(f3, start, end, step, epsilon);
+    cout << "Проверка f(x) = cos(x):" << endl;
+    checkEvenOdd(f4, start, end, step, epsilon);
     return 0;
 }

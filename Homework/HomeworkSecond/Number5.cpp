@@ -1,26 +1,21 @@
 #include <iostream>
+#include <iomanip>
 
-int main(){
-    setlocale (LC_ALL, "RU");
-    double k,p,r;
-    std::cout<<"The credit: ";
-    std::cin>>k;
-    std::cout<<"The percent per year: ";
-    std::cin>>p;
-    std::cout<<"The sellery: ";
-    std::cin>>r;
-    int count = 0;
-    while(r < k){
-        r += r;
-        k = k + (k * (p/100));
-        count += 1;
+using namespace std;
+
+void printConversionTable(double maxKm) {
+    setlocale(LC_ALL, "ru");
+    const double mileToKm = 1.609344;
+    cout << setw(10) << "Мили" << setw(15) << "Км" << endl;
+    for (double km = 1.0; km <= maxKm; km += 1.0) {
+        double miles = km / mileToKm;
+        cout << setw(10) << fixed << setprecision(4) << miles 
+             << setw(15) << fixed << setprecision(4) << km << endl;
     }
-    if (count>= 60){
-        std::cout<<"Кредит не будет погашен"<<std::endl;
-        return 0;
-    }
+}
 
-    std::cout<<"Погасит кредит за "<<count<<" лет"<<std::endl;
-
+int main() {
+    double maxKm = 10.0;
+    printConversionTable(maxKm);
     return 0;
 }
