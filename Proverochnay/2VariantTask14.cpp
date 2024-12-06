@@ -42,5 +42,8 @@ int main(){
         cout << "The maximum price: " << max_price << endl;
     }
 
+    delete[] weight;
+    delete[] price;
+     
     return 0;
 }
