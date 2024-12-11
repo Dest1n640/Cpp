@@ -12,22 +12,29 @@ int main() {
     cout << "Old string: " << str << endl;
 
     bool anyNumber = false;
-    for (int i = 0; i < N && str[i] != '\0'; i++) {
-        if (str[i] >= '0' && str[i] <= '9') {
+
+    char* ptr = str;
+    while (*ptr != '\0') {
+        if (*ptr >= '0' && *ptr <= '9') {
             anyNumber = true;
             break; 
         }
+        ptr++;
     }
 
     if (!anyNumber) {
         cout << "No number in string" << endl;
         return -1;
     }
-    for (int i = 0; i < N && str[i] != '\0'; i++) {
-        if (str[i] >= '0' && str[i] <= '9') {
-            numbers[str[i] - '0']++;  
+
+    ptr = str;
+    while (*ptr != '\0') {
+        if (*ptr >= '0' && *ptr <= '9') {
+            numbers[*ptr - '0']++;  
         }
+        ptr++;
     }
+
     int max = 0; 
     int max_digit = -1; 
 
@@ -42,7 +49,6 @@ int main() {
         cout << "The most frequent digit is: " << max_digit << endl;
         cout << "It appears " << max << " times." << endl;
     }
-
-
+    
     return 0;
 }

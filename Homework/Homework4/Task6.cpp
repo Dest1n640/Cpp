@@ -5,27 +5,31 @@ using namespace std;
 int main() {
     int N = 1000;
 
-    cout << "Inpute numbers:(In the end input the letter) ";
+    cout << "Input numbers: (In the end input a letter) ";
     int* line = new int[N];
 
-    for (int i = 0; i < N; i++){
-        cin >> line[i];
+    int* ptr = line;
+    while (cin >> *ptr) {
+        ptr++;
     }
-    int left = 0, right = 999;
+
+    int* left = line;
+    int* right = line + N - 1;
     int result = -1;
 
     while (left <= right) {
-        int mid = left + (right - left) / 2;
+        int* mid = left + (right - left) / 2;
 
-        if (line[mid] == 0) {
+        if (*mid == 0) {
             right = mid - 1; 
         } else {
             left = mid + 1; 
         }
     }
-    result = left;
+    result = left - line;
 
     cout << "Index of first zero: " << result + 1 << endl;
-    
+
+    delete[] line;
     return 0;
 }

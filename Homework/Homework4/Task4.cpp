@@ -3,41 +3,47 @@
 using namespace std;
 
 int main() {
-    int N = 80;
+    const int N = 80;
     cout << "Input the string: ";
-    
+
     char* str = new char[N];
     cin.getline(str, N);
 
-    for (int i = 0; i < N && str[i] != '\0'; i++) {
-        if (str[i] == '{') {
-            while (i < N && str[i] != '\0') {
-                i++;
-                if (str[i] == '[' || str[i] == ']' || str[i] == '(' || str[i] == '{' || str[i] == '}') {
+    char* ptr = str;
+
+    while (*ptr != '\0') {
+        if (*ptr == '{') {
+            ptr++;
+            while (*ptr != '\0') {
+                if (*ptr == '[' || *ptr == ']' || *ptr == '(' || *ptr == '{' || *ptr == '}') {
                     cout << "Error: Invalid symbol after '{'. Exiting." << endl;
                     delete[] str;
                     return -1;
                 }
+                ptr++;
             }
-        } else if (str[i] == '(') {
-            while (i < N && str[i] != '\0') {
-                i++;
-                if (str[i] == '[' || str[i] == ']' || str[i] == '(' || str[i] == '{' || str[i] == '}') {
+        } else if (*ptr == '(') {
+            ptr++;
+            while (*ptr != '\0') {
+                if (*ptr == '[' || *ptr == ']' || *ptr == '(' || *ptr == '{' || *ptr == '}') {
                     cout << "Error: Invalid symbol after '('. Exiting." << endl;
                     delete[] str;
                     return -2;
                 }
+                ptr++;
             }
-        } else if (str[i] == '[') {
-            while (i < N && str[i] != '\0') {
-                i++;
-                if (str[i] == '[' || str[i] == '(' || str[i] == ')' || str[i] == '{' || str[i] == '}') {
+        } else if (*ptr == '[') {
+            ptr++;
+            while (*ptr != '\0') {
+                if (*ptr == '[' || *ptr == '(' || *ptr == ')' || *ptr == '{' || *ptr == '}') {
                     cout << "Error: Invalid symbol after '['. Exiting." << endl;
                     delete[] str;
                     return -3;
                 }
+                ptr++;
             }
         }
+        ptr++;
     }
 
     cout << "String is valid." << endl;

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 
 using namespace std;
 
@@ -15,24 +14,31 @@ int main() {
     cin.getline(str, n + 1);
 
     char* new_str = new char[n + 1];
-    memset(new_str, 0, n + 1);
+    for (int i = 0; i < n + 1; i++) {
+        new_str[i] = '\0';
+    }
 
-    int new_len = 0;
+    char* current_new = new_str;
+    char* current_str = str;
 
-    for (int i = 0; str[i] != '\0'; i++) {
+    while (*current_str != '\0') {
         bool is_duplicate = false;
+        char* checker = new_str;
 
-        for (int q = 0; q < new_len; q++) {
-            if (str[i] == new_str[q]) {
+        while (checker < current_new) {
+            if (*current_str == *checker) {
                 is_duplicate = true;
                 break;
             }
+            checker++;
         }
 
         if (!is_duplicate) {
-            new_str[new_len] = str[i];
-            new_len++;
+            *current_new = *current_str;
+            current_new++;
         }
+
+        current_str++;
     }
 
     cout << "String with unique characters: " << new_str << endl;

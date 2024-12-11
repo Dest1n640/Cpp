@@ -4,58 +4,58 @@
 using namespace std;
 
 int main(void) {
-  int const N = 80;
-  char str[N + 1] = {'0'};
-  char newStr[N + 1];
-  char *pstr = str;
-  char *pnewStr = newStr;
-  int strLen = 0;
+    const int MAX_LENGTH = 80;
+    char inputStr[MAX_LENGTH + 1] = {'0'};
+    char resultStr[MAX_LENGTH + 1];
+    char *inputPtr = inputStr;
+    char *resultPtr = resultStr;
+    int inputLength = 0;
 
-  cout << "Enter the string and press enter" << endl;
-  cin.getline(str, 80);
+    cout << "Enter the string and press enter" << endl;
+    cin.getline(inputStr, MAX_LENGTH);
 
-  cout << "Old string: " << endl;
-  cout << str << endl;
+    cout << "Old string: " << endl;
+    cout << inputStr << endl;
 
-  for (int i = 0; i < N; i++) {
-    if (*pstr != 0) {
-        strLen++;
-    }
-    if ((i == 0 || i == N-1) && *pstr == ' ') {
-        while (*pstr == ' ') {
-            pstr++;
+    for (int i = 0; i < MAX_LENGTH; i++) {
+        if (*inputPtr != 0) {
+            inputLength++;
+        }
+        if ((i == 0 || i == MAX_LENGTH - 1) && *inputPtr == ' ') {
+            while (*inputPtr == ' ') {
+                inputPtr++;
+                continue;
+            }
+        }
+        else if (*inputPtr == ' ' && *(inputPtr + 1) == ' ') {
+            inputPtr++;
             continue;
         }
+        else {
+            *resultPtr = *inputPtr;
+            inputPtr++;
+            resultPtr++;
+        }
     }
-    else if (*pstr == ' ' && *(pstr+1) == ' ') {
-        pstr++;
-        continue;
+    resultPtr = resultStr;
+    char *shiftPtr = resultPtr + MAX_LENGTH - inputLength;
+    cout << "Shift index = " << MAX_LENGTH - inputLength << endl;
+
+    for (int i = 0; i < MAX_LENGTH; i++) {
+        if (*resultPtr == '0') {
+            break;
+        }
+        *shiftPtr = *resultPtr;
+        *resultPtr = 0;
+        resultPtr++;
+        shiftPtr++;
     }
-    else {
-        *pnewStr = *pstr;
-        pstr++;
-        pnewStr++;
-    }
-  }
-  pnewStr = newStr;
-  char *pSdvig = pnewStr + 80 - strLen;
-  cout << "pSdvig ind = " << 80 - strLen << endl;
 
-  for (int i = 0; i < N; i++) {
-      if (*pnewStr == '0'){ 
-          break;
-      }
-      *pSdvig = *pnewStr;
-      *pnewStr = 0;
-      pnewStr++;
-      pSdvig++;
-  }
+    resultStr[MAX_LENGTH] = 0;
 
-  newStr[N] = 0;
+    cout << "New string: " << endl;
+    cout << resultStr << endl;
+    cout << "String length = " << inputLength << endl;
 
-  cout << "New string: "<< endl;
-  cout << newStr << endl;
-  cout << "StrLen = " << strLen << endl;
-
-  return 0;
+    return 0;
 }

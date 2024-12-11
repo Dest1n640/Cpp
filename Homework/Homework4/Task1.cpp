@@ -5,7 +5,6 @@
 using namespace std;
 
 int main(){
-    setlocale(LC_ALL, "ru");
     srand(time(0));
     int my_mass[10];
     int* ptr = my_mass;
@@ -13,7 +12,7 @@ int main(){
     for (int i = 0; i < 10; ++i){
         *(ptr + i)= rand() % 101 - 50;
     }
-    cout << "Основной массив - " << endl;
+    cout <<  "Main arr - " << endl;
     for (int i = 0; i < 10; i++){
         cout << *(ptr + i) <<" ";
     }
@@ -26,6 +25,6 @@ int main(){
         }
     }
 
-    cout << "Минимальное значение - " << *min_ptr << endl;
+    cout << "Minimal value - " << *min_ptr << endl;
     return 0;
 }
