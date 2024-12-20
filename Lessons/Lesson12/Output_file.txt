@@ -1,0 +1,14 @@
+Queen 1: Column = 2, Row = 2
+Queen 2: Column = 3, Row = 3
+Queen 3: Column = 4, Row = 4
+Queen 4: Column = 5, Row = 2
+Queen 5: Column = 8, Row = 1
+Queen 6: Column = 1, Row = 8
+Queen 7: Column = 2, Row = 7
+Queen 8: Column = 5, Row = 7
+2233
+2252
+2227
+3344
+5257
+2757
