@@ -1,6 +1,5 @@
 #include "search.h"
 #include "../Head/geometry.h"
-#include <iostream>
 
 // Вставка треугольника в отсортированный массив
 void findAndInsert(Triangle *trArray, int length, const Triangle &triangle) {

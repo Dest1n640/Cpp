@@ -1,52 +1,29 @@
-#include "../Head/file.h"
-#include "../Head/search.h"
+#include "../Head/geometry.h"
 #include <iostream>
-#include <locale.h>
 
-int main(int argc, char **argv) {
-  setlocale(LC_ALL, "Russian");
+int main() {
+  Point p1, p2, p3;
 
-  if (argc < 3) {
-    std::cout << "Использование: Triangles.exe inf.txt outf.txt" << std::endl;
-    return 1;
+  std::cout << "Введите координаты первой точки (x y): ";
+  std::cin >> p1.x >> p1.y;
+
+  std::cout << "Введите координаты второй точки (x y): ";
+  std::cin >> p2.x >> p2.y;
+
+  std::cout << "Введите координаты третьей точки (x y): ";
+  std::cin >> p3.x >> p3.y;
+
+  double area = calcAreaByPoints(p1, p2, p3);
+  double perimeter = calcPerimeterByPoints(p1, p2, p3);
+
+  if (area > 0) {
+    std::cout << "Площадь треугольника: " << area << std::endl;
+    std::cout << "Периметр треугольника: " << perimeter << std::endl;
+  } else {
+    std::cout
+        << "Невозможно вычислить площадь и периметр (некорректный треугольник)"
+        << std::endl;
   }
 
-  const char *inFileName = argv[1];
-  const char *outFileName = argv[2];
-
-  // Определение количества точек
-  int numPoints;
-
-  // Чтение точек из файла
-  Point *pointArray = new Point[MAX_POINTS]; // Теперь MAX_POINTS известен
-
-  if (!readPoints(inFileName, pointArray, &numPoints)) {
-    std::cout << "Ошибка при чтении точек из файла " << inFileName << std::endl;
-    delete[] pointArray;
-    return 2;
-  }
-
-  if (numPoints < 3) {
-    std::cout << "Недостаточно точек для построения треугольника." << std::endl;
-    delete[] pointArray;
-    return 3;
-  }
-
-  // Поиск треугольников
-  const int maxTrNum = 3;
-  Triangle trArray[maxTrNum];
-  searchLargestTriangles(pointArray, numPoints, trArray, maxTrNum);
-
-  // Запись результатов в файл
-  if (!writeTriangles(outFileName, trArray, maxTrNum)) {
-    std::cout << "Ошибка при записи треугольников в файл " << outFileName
-              << std::endl;
-    delete[] pointArray;
-    return 4;
-  }
-
-  std::cout << "Программа успешно завершена." << std::endl;
-
-  delete[] pointArray;
   return 0;
 }
