@@ -1,4 +1,4 @@
-#include "../Head/geometry.h"
+#include "Head/geometry.h"
 #include <iostream>
 
 int main() {
