@@ -3,6 +3,16 @@
 #include <cmath>
 #include <iostream>
 
+Rational my_sqrt(int x,
+                 double Epsilon = std::numeric_limits<double>::epsilon()) {
+  if (x < 0)
+    return 0;
+
+  int guess = x;
+  while (abs(guess * guess - x) > Epsilon)
+    guess = (guess + x / guess) / 2;
+  return guess;
+}
 Rational linear_eq(Rational k, Rational b) { return (-b) / k; }
 
 QuadraticRoots quadr_eq(Rational a, Rational b, Rational c) {

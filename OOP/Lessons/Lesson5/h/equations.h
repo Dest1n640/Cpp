@@ -10,5 +10,7 @@ struct QuadraticRoots {
 };
 Rational linear_eq(Rational k, Rational b);
 QuadraticRoots quadr_eq(Rational a, Rational b, Rational c);
+Rational my_sqrt(double x,
+                 double Epsilon = std::numeric_limits<double>::epsilon());
 
 #endif // !

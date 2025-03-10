@@ -14,7 +14,6 @@ int main() {
   string age, data, month;
   cout << "Input the age, day, and month (age day month, e.g., 2000 01 01): ";
   cin >> age >> data >> month;
-
   if (age.length() != 4 || data.length() != 2 || month.length() != 2) {
     cerr << "Error: Invalid input format.  Please use YYYY DD MM." << endl;
     return 1;
