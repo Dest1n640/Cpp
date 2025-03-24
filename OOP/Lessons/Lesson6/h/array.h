@@ -3,36 +3,36 @@
 
 #include <iostream>
 
-class ArrayException {}; // Класс исключений для массива
+const int DEFAULT_CAPACITY = 10;
+
+class ArrayException {
+public:
+  ArrayException() {}
+  ~ArrayException() {}
+};
 
 class Array {
 private:
-  int *ptr;     // Указатель на динамическое выделение массива
-  int size;     // Текущий размер массива
-  int capacity; // Текущая емкость массива
-  void increaseCapacity(int newCapacity); // Метод для увелечения емкости
-                                          // массива
-  int getSize() const; // Метод возвращающий текущий размер массива
+  int *ptr;
+  int size;
+  int capacity;
 
 public:
-  int &operator[](int index); // Перегружаеммый оператор для доступа по индексу
-  void insert(int elem);      // Метод для добавление элементов
-  void
-  insert(int elem,
-         int index); // Метод для добавляение элементов по определенному индексу
-  void remove(int index); // Метод для удаление элементаа по индексу
-  explicit Array(int startCapacity = DEFAULT_CAPACITY); // констркуктор
-  ~Array();                                             // Деструктор
-  Array(const Array &arr);            // конструктор копирования
-  Array &operator=(const Array &arr); // Перегружаемый оператор присваивания
-  int operator[](
-      int index) const; // Оператор для доступа к элементов через индекс
-  friend std::ostream &
-  operator<<(std::ostream &out,
-             const Array
-                 &arr); // Перегружаемый оператор для вывода элементов на экраны
+  explicit Array(int startCapacity = DEFAULT_CAPACITY);
+  ~Array();
+  Array(const Array &arr);
+  Array &operator=(const Array &arr);
+  int &operator[](int index);
+  void insert(int index, int elem);
+  void insert_memcpy(int index, int elem);
+  void insert(int elem);
 
-  static const int DEFAULT_CAPACITY = 10;
+  void increaseCapacity(int newCapacity);
+  void remove(int index);
+
+  int getSize() const;
+
+  friend std::ostream &operator<<(std::ostream &out, const Array &arr);
 };
 
 #endif

@@ -1,8 +1,8 @@
 #include "./h/array.h"
-#include "./h/task.h"
-#include <array>
 #include <iostream>
 using namespace std;
+
+void task(int N, int k);
 
 int main(void) {
   try {
@@ -24,9 +24,26 @@ int main(void) {
   }
 
   int k, N;
-  cout << "Input the k ";
+  cout << "Input the k: ";
   cin >> k;
-  cout << "Input the N ";
+  cout << "Input the N: ";
   cin >> N;
+  cout << "The result of the the task:" << '\n';
+  task(N, k);
+  cout << "The programm is finish" << endl;
+  return 0;
+}
+
+void task(int N, int k) {
   Array arr(N);
+  for (int i = 0; i < N; i++)
+    arr.insert(i);
+  int index = 0;
+  for (int i = arr.getSize(); i > 1; i--) {
+    index = (index + k - 1) % arr.getSize();
+    arr.remove(index);
+    std::cout << "\t" << "Total size: " << arr.getSize() << std::endl;
+    std::cout << "\t" << arr << std::endl;
+  }
+  return;
 }

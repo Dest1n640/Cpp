@@ -42,13 +42,6 @@ int &Array::operator[](int index) {
   return ptr[index];
 }
 
-int Array::operator[](int index) const {
-  if (index < 0 || index >= size) {
-    throw ArrayException();
-  }
-  return ptr[index];
-}
-
 void Array::increaseCapacity(int newCapacity) {
   capacity = newCapacity < capacity * 2 ? capacity * 2 : newCapacity;
   int *newPtr = new int[capacity];
@@ -91,9 +84,16 @@ void Array::remove(int index) {
 int Array::getSize() const { return size; }
 
 std::ostream &operator<<(std::ostream &out, const Array &arr) {
+  out << std::endl;
   out << "Total size: " << arr.size << std::endl;
+  out << "[";
   for (int i = 0; i < arr.size; ++i) {
-    out << arr.ptr[i] << std::endl;
+    out << arr.ptr[i];
+    if (i < arr.size - 1) {
+      out << ", ";
+    }
   }
+  out << "]";
+  out << std::endl;
   return out;
 }
