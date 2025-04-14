@@ -21,6 +21,6 @@ public:
   bool connected(Node *begin, Node *end);
 };
 
-void writeDisjointGraphs(const Graph &graph);
+void writeDisjointoGraphs(const Graph &graph);
 
 #endif
