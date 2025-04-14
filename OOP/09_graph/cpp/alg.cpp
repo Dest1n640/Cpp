@@ -24,7 +24,7 @@ bool BFS::connected(Node *begin, Node *end) {
   return false;
 }
 
-void writeDisjointGraphs(const Graph &graph) {
+void writeDisjointoGraphs(const Graph &graph) {
   BFS bfs(graph);
 
   std::vector<Graph> disjointGraphs;
@@ -47,7 +47,7 @@ void writeDisjointGraphs(const Graph &graph) {
   }
 
   for (int i = 0; i < disjointGraphs.size(); i++) {
-    std::string filename("disjointGraph" + std::to_string(i + 1));
+    std::string filename("File" + std::to_string(i + 1));
     std::ofstream out(filename);
     if (!out.is_open()) {
       throw GraphException();
