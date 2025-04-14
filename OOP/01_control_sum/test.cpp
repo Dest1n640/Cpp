@@ -4,7 +4,6 @@
 
 using namespace std;
 
-// Инициализация функций до main
 void printBinary(int number, int bits);
 void printMatrix(int **matrix, int size);
 int encodePosition(int row, int col, int size);
