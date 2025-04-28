@@ -32,11 +32,6 @@ void read_points_and_calculate(const std::string &filename) {
     }
   }
 
-  if (points.size() < 3) {
-    std::cerr << "Недостаточно точек для построения фигуры!" << std::endl;
-    return;
-  }
-
   try {
     Polygon polygon(points);
     std::cout << "Площадь: " << polygon.calc_area() << std::endl;
