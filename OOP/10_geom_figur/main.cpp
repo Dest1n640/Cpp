@@ -1,53 +1,47 @@
 #include "./h/geom_fig.h"
+#include <fstream>
 #include <iostream>
+#include <sstream>
+#include <unistd.h>
 #include <vector>
+
+void read_points_and_calculate(const std::string &filename);
 
 // Реализация чисто виртуального деструктора Figure
 Figure::~Figure() = default;
 
 int main() {
-  try {
-    // Тестирование круга
-    Circle circle({0, 0}, 5);
-    circle.name();
-    std::cout << "Area: " << circle.calc_area() << std::endl; // ~78.5398
-    std::cout << "Perimeter: " << circle.calc_perimeter()
-              << std::endl; // ~31.4159
-
-    // Тестирование эллипса
-    Elips elips({0, 0}, 8, 4);
-    elips.name();
-    std::cout << "Area: " << elips.calc_area() << std::endl; // ~100.531
-    std::cout << "Perimeter: " << elips.calc_perimeter()
-              << std::endl; // ~39.498
-
-    // Тестирование треугольника
-    Triangle triangle({0, 0}, {3, 0}, {0, 4});
-    triangle.name();
-    std::cout << "Area: " << triangle.calc_area() << std::endl;           // 6
-    std::cout << "Perimeter: " << triangle.calc_perimeter() << std::endl; // 12
-
-    // Тестирование прямоугольника
-    Rectangle rect({1, 4}, {5, 1});
-    rect.name();
-    std::cout << "Area: " << rect.calc_area()
-              << std::endl; // 12 (ошибка в имени метода!)
-    std::cout << "Perimeter: " << rect.calc_perimeter() << std::endl; // 14
-
-    // Тестирование многоугольника
-    std::vector<Points> poly_points = {{0, 0}, {3, 0}, {3, 4}, {0, 4}};
-    Polygon polygon(poly_points);
-    polygon.name();
-    std::cout << "Area: " << polygon.calc_area() << std::endl;           // 12
-    std::cout << "Perimeter: " << polygon.calc_perimeter() << std::endl; // 14
-
-    // Проверка исключения для многоугольника
-    std::vector<Points> invalid_points = {{0, 0}, {1, 1}};
-    Polygon invalid_poly(invalid_points); // Выбросит исключение
-
-  } catch (const PolygonException &) {
-    std::cout << "\n[OK] Polygon exception caught!" << std::endl;
+  read_points_and_calculate("granitsy-uchastka2.txt");
+  return 0;
+}
+void read_points_and_calculate(const std::string &filename) {
+  std::ifstream file(filename);
+  if (!file.is_open()) {
+    std::cerr << "Ошибка открытия файла: " << filename << std::endl;
+    return;
   }
 
-  return 0;
+  std::vector<Points> points;
+  int x, y;
+  std::string line;
+
+  while (std::getline(file, line)) {
+    std::istringstream iss(line);
+    if (iss >> x >> y) {
+      points.emplace_back(x, y);
+    }
+  }
+
+  if (points.size() < 3) {
+    std::cerr << "Недостаточно точек для построения фигуры!" << std::endl;
+    return;
+  }
+
+  try {
+    Polygon polygon(points);
+    std::cout << "Площадь: " << polygon.calc_area() << std::endl;
+    std::cout << "Периметр: " << polygon.calc_perimeter() << std::endl;
+  } catch (const Figure_Exception &e) {
+    std::cerr << "Ошибка создания многоугольника." << std::endl;
+  }
 }

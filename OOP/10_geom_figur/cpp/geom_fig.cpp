@@ -1,7 +1,9 @@
 #include "../h/geom_fig.h"
 #include <cmath>
 #include <csignal>
+#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 Points::Points(int x, int y) : x(x), y(y) {}
@@ -79,7 +81,7 @@ void Rectangle::name() { std::cout << "Rectangle" << std::endl; }
 
 Polygon::Polygon(std::vector<Points> &vertices) : vertices(vertices) {
   if (vertices.size() < 3)
-    throw PolygonException();
+    throw Figure_Exception();
 }
 
 double Polygon::calc_area() {

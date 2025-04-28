@@ -2,7 +2,11 @@
 #define GEOM_FIG_H
 
 #include <csignal>
+#include <string>
 #include <vector>
+
+class Figure_Exception {};
+
 struct Points {
   int x, y;
   Points(int x = 0, int y = 0);
@@ -63,8 +67,6 @@ public:
   double calc_perimeter();
   void name();
 };
-
-class PolygonException {};
 
 class Polygon : public Figure {
   std::vector<Points> vertices;
