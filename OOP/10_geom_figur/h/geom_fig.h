@@ -63,6 +63,8 @@ class Rectangle : public Figure {
 
 public:
   Rectangle(Points top_left, Points bottom_right);
+  Rectangle(const Points &p1, const Points &p2, const Points &p3,
+            const Points &p4);
   double calc_area();
   double calc_perimeter();
   void name();
