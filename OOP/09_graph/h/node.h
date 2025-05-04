@@ -14,7 +14,6 @@ class Node {
 
 public:
   typedef std::set<Node *>::const_iterator node_iterator;
-  // Для чего использовать список инициализации?
   Node(const std::string &aname) : name(aname) {};
   const std::string &getName() const;
   node_iterator nb_begin() const;

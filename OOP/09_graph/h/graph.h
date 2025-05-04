@@ -3,8 +3,6 @@
 
 #include "./node.h"
 
-// Реализация types.h?
-
 class GraphException {};
 
 class Graph {
