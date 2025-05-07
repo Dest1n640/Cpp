@@ -4,6 +4,9 @@
 #include <fstream>
 #include <iostream>
 #include <queue>
+#include <vector>
+
+BFS::BFS(const Graph &agraph) : graph(agraph) {};
 
 bool BFS::connected(Node *begin, Node *end) {
   std::queue<Node *> nodes;
@@ -49,6 +52,7 @@ void writeDisjointoGraphs(const Graph &graph) {
   for (int i = 0; i < disjointGraphs.size(); i++) {
     std::string filename("File" + std::to_string(i + 1));
     std::ofstream out(filename);
+
     if (!out.is_open()) {
       throw GraphException();
     }
@@ -75,4 +79,26 @@ bool DFS::connected(Node *begin, Node *end, int depth) {
         return true;
   }
   return false;
+}
+
+MarkedNode::MarkedNode(Node *anode, int amark, Node *aprev)
+    : node(anode), mark(amark), prev(aprev) {};
+
+bool PriorityQueue::empty() const { return nodes.empty(); }
+
+MarkedNode PriorityQueue::pop() {
+  MarkedNode mn = nodes.back();
+  nodes.pop_back();
+  return mn;
+}
+
+void PriorityQueue::push(Node *node, int mark, Node *prev) {
+  std::vector<MarkedNode>::iterator it = nodes.begin();
+  MarkedNode mn(node, mark, prev);
+  while (it != nodes.end() && mark < it->mark)
+    it++;
+  if (it == nodes.end())
+    nodes.push_back(mn);
+  else
+    nodes.insert(it, mn);
 }
