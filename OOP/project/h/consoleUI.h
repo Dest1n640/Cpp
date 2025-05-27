@@ -6,13 +6,14 @@
 #include "gameEngine.h"
 
 class ConsoleUI {
-  Difficult selectDiff();
-  int selectBoardSize();
-  void displayBoard(const Board &board);
-  void promptMove(GameEngine &engine);
+  Difficult selectDiff(); // Запрашивает у пользователя сложность
+  int selectBoardSize();  // Запрашивает у пользователя размер доски
+  void displayBoard(const Board &board); // Отображает текущее состояние доски
+  void promptMove(GameEngine &engine);   // Запрашивает у пользователя ход и
+                                         // применяет его через игровой движок
 
 public:
-  void run();
+  void run(); // Запуск программу
 };
 
 #endif

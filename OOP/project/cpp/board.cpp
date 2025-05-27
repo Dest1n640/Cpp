@@ -1,5 +1,4 @@
 #include "../h/board.h"
-#include <cinttypes>
 #include <cmath>
 #include <vector>
 
@@ -47,7 +46,9 @@ Board::Board(int s) : size(s), blockSize(static_cast<int>(std::sqrt(s))) {
   }
   initBlocks();
 }
-Cell &Board::getCell(int r, int c) { return grid.at(r).at(c); }
+Cell &Board::getCell(int r, int c) {
+  return grid.at(r).at(c);
+} // grid.at = grid[x] + проверка на выход из границы
 
 const Cell &Board::getCell(int r, int c) const { return grid.at(r).at(c); }
 
@@ -71,7 +72,14 @@ bool Board::isValidMove(int r, int c, int val) const {
   return true;
 }
 
-void Board::setCell(int r, int c, int val) { grid.at(r).at(c).value = val; }
+void Board::setCell(int r, int c, int v) {
+  if (r < 0 || r >= size || c < 0 || c >= size)
+    throw BoardException();
+  Cell &cell = grid[r][c];
+  cell.value = v;
+  if (v == 0)
+    cell.is_locked = false;
+}
 
 std::vector<Cell *> Board::getRow(int r) {
   std::vector<Cell *> out;

@@ -9,6 +9,8 @@ struct Move {
   int oldValue, newValue;
 };
 
+// Move - структура для хранения информации о ходе: позиция и изменение значения
+
 class GameEngineException {};
 
 class GameEngine {
@@ -18,11 +20,17 @@ class GameEngine {
 public:
   GameEngine(int boardSize);
   GameEngine(const Board &initialBoard);
-  void applyMove(int x, int y, int value);
-  void undo();
-  bool is_win() const;
-  void setboard(const Board &b);
-  const Board &getBoard() const;
+  // GameEngine - конструктор игрового движка, инициализирует с существующей
+  // доской
+
+  void applyMove(int x, int y,
+                 int value); // Применение хода - устанавливает в опр ячейку
+                             // значение и сохраняет в историю
+
+  void undo();                   // Отмена хода
+  bool is_win() const;           // Проверка на победу
+  void setboard(const Board &b); // Сеттер - устанавливает новое состояние доски
+  const Board &getBoard() const; // Возвращает ссылку на текующию доску
 };
 
 #endif
