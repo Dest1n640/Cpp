@@ -110,7 +110,8 @@ void ConsoleUI::displayBoard(const Board &b) {
   std::cout << "Commands:\n"
                " m row col value   -> make move\n"
                " u                 -> undo last move\n"
-               " q                 -> quit\n";
+               " q                 -> quit\n"
+               " h                 -> get a hint\n";
 }
 
 void ConsoleUI::promptMove(GameEngine &engine) {
@@ -125,6 +126,16 @@ void ConsoleUI::promptMove(GameEngine &engine) {
     if (!(iss >> cmd)) {
       std::cout << "Unknown command.\n";
       continue;
+    }
+    if (cmd == 'h') {
+      if (cmd == 'h') {
+        try {
+          engine.getHint();
+        } catch (...) {
+          std::cout << "Failed to provide a hint.\n";
+        }
+        continue;
+      }
     }
     if (cmd == 'q') {
       std::cout << "Goodbye!\n";
@@ -142,7 +153,6 @@ void ConsoleUI::promptMove(GameEngine &engine) {
     if (cmd == 'm') {
       int r, c, v;
       if (iss >> r >> c >> v) {
-        // Проверяем границы
         if (r < 1 || r > engine.getBoard().getSize() || c < 1 ||
             c > engine.getBoard().getSize()) {
           std::cout << "Coordinates out of range.\n";
@@ -154,11 +164,11 @@ void ConsoleUI::promptMove(GameEngine &engine) {
         } catch (...) {
           const Cell &cell = engine.getBoard().getCell(r - 1, c - 1);
           if (cell.is_locked) {
-            std::cout
-                << "Invalid move: This cell is locked and cannot be changed.\n";
+            std::cout << "Invalid move: This cell is locked and cannot be "
+                         "changed.\n";
           } else {
-            std::cout
-                << "Invalid move: Violates Sudoku rules or invalid value.\n";
+            std::cout << "Invalid move: Violates Sudoku rules or invalid "
+                         "value.\n";
           }
           continue;
         }
@@ -173,9 +183,9 @@ void ConsoleUI::promptMove(GameEngine &engine) {
 }
 
 void ConsoleUI::run() {
-  Difficult diff = selectDiff();
+  currentDifficulty = selectDiff();
   int size = selectBoardSize();
-  PuzzleGenerator gen(diff);
+  PuzzleGenerator gen(currentDifficulty);
   GameEngine engine(gen.generate(size));
   while (true) {
     displayBoard(engine.getBoard());

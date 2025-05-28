@@ -31,6 +31,9 @@ public:
   bool is_win() const;           // Проверка на победу
   void setboard(const Board &b); // Сеттер - устанавливает новое состояние доски
   const Board &getBoard() const; // Возвращает ссылку на текующию доску
+
+  void getHint(); // Метод который будет выводить подскадкук
+                  // по нажатию на кнопку
 };
 
 #endif
